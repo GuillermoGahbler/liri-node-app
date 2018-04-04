@@ -12,7 +12,7 @@ let liri = {
 
     captureInput: function () {
         [notUse, moreNotUse, command, ...options] = process.argv
-        options=options.join(" ")
+        options = options.join(" ")
         return [command, options]
 
     },
@@ -29,7 +29,7 @@ let liri = {
 
     },
 
-     // twitter one is complete
+    // twitter one is complete
     mytweets: function () {
         var client = new Twitter(keys.twitter);
         var params = {
@@ -48,39 +48,40 @@ let liri = {
         });
     },
 
-    // Spotify is completed
+    // Spotify needs default song Ace of Base the sign
     spotifythissong: function (query) {
+        if (!query) query ="enter the wu-tang, cream"
         var spotify = new Spotify(keys.spotify);
-         
+
         spotify.search({
-           
             type: 'track',
             query: query
+
         }, function (error, data) {
             if (error) throw error
 
-            data.tracks.items.forEach(function(track){ 
-            var artists = track.artists.map(artist=>artist.name)
-            
+            data.tracks.items.forEach(function (track) {
+                var artists = track.artists.map(artist => artist.name)
+
                 console.log("Song name: " + query);
                 console.log("URL: " + track.external_urls.spotify);
                 console.log("Artist: " + artists);
                 console.log("Album: " + track.album.name);
-                
+
             })
 
 
         });
     },
-    // working on imbd 
+    // IMDB complete
     moviethis: function (query) {
         if (!query) query = "mr nobody";
         var path = "https://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=trilogy"
-        request(path,(error, response,body)=>{
+        request(path, (error, response, body) => {
             if (error) throw error
             console.log(body);
         })
-    
+
     },
     dowhatitsays: function () {
         return "do this stuff right here"
@@ -103,7 +104,7 @@ if (liri.validateCommand(userCommand)) {
     let callApi = liri.convertStringToFunction(userCommand)
 
     let response = liri[callApi](userOptions)
-     
+
 } else {
     liri.print("invalid command")
 }
