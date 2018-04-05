@@ -8,7 +8,7 @@ const keys = require("./keys");
 
 
 
-let liri = {
+var liri = {
 
     validCommands: ["my-tweets", "spotify-this-song", "movie-this", "do-what-it-says"],
 
@@ -31,11 +31,11 @@ let liri = {
 
     },
 
-    // twitter complete
+    // twitter completed
     mytweets: function () {
         var client = new Twitter(keys.twitter);
         var params = {
-            screen_name: 'nodejs'
+            screen_name: 'nodejs' 
         };
         var path = "statuses/user_timeline"
         var params = {
@@ -50,7 +50,7 @@ let liri = {
         });
     },
 
-    // Spotify complete
+    // Spotify completed
     spotifythissong: function (query) {
         if (!query) query = "all eyez on me, i ain't mad at cha"
         var spotify = new Spotify(keys.spotify);
@@ -75,7 +75,7 @@ let liri = {
 
         });
     },
-    // IMDB complete
+    // IMDB completed
     moviethis: function (query) {
         if (!query) query = "mr nobody";
         var path = "https://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=trilogy&r=json"
@@ -121,16 +121,16 @@ let liri = {
 
 
 
-// currently outside of the object
+//  outside of the object
 let inputs = liri.captureInput();
 let userCommand = inputs[0];
 let userOptions = inputs[1];
 
 
 if (liri.validateCommand(userCommand)) {
-    let callApi = liri.convertStringToFunction(userCommand)
+    var callApi = liri.convertStringToFunction(userCommand)
 
-    let response = liri[callApi](userOptions)
+    var response = liri[callApi](userOptions)
 
 } else {
     liri.print("invalid command")
