@@ -13,7 +13,4 @@ module.exports = {
         secret: process.env.SPOTIFY_SECRET
     },
 
-
-
-
 }

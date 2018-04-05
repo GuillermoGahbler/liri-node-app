@@ -3,7 +3,9 @@ require("dotenv").config();
 const Twitter = require("twitter");
 const Spotify = require("node-spotify-api");
 const request = require("request")
+const fs = require("fs")
 const keys = require("./keys");
+
 
 
 let liri = {
@@ -25,11 +27,11 @@ let liri = {
     },
 
     convertStringToFunction: function (string) {
-        return string.replace(/-/g, "")
+        return string.replace(/-/g, "").replace(/"/g,"")
 
     },
 
-    // twitter one is complete
+    // twitter complete
     mytweets: function () {
         var client = new Twitter(keys.twitter);
         var params = {
@@ -48,9 +50,9 @@ let liri = {
         });
     },
 
-    // Spotify needs default song Ace of Base the sign
+    // Spotify complete
     spotifythissong: function (query) {
-        if (!query) query ="enter the wu-tang, cream"
+        if (!query) query = "enter the wu-tang, cream"
         var spotify = new Spotify(keys.spotify);
 
         spotify.search({
@@ -76,15 +78,40 @@ let liri = {
     // IMDB complete
     moviethis: function (query) {
         if (!query) query = "mr nobody";
-        var path = "https://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=trilogy"
+        var path = "https://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=trilogy&r=json"
         request(path, (error, response, body) => {
             if (error) throw error
-            console.log(body);
+            const movie = JSON.parse(body);
+            const rottenScore = movie.Ratings
+                .filter(val => val.Source = "Rotten Tomato")[0].Value
+            console.log("Movie Title: " + movie.Title);
+            console.log("Year released: " + movie.Year);
+            console.log("IMDB rating: " + movie.imdbRating + "/10");
+            console.log("Rotten Tomatoes rating: " + rottenScore);
+            console.log("Country produced: " + movie.Country);
+            console.log("Language: " + movie.Language);
+            console.log("Plot: " + movie.Plot);
+            console.log("Actors: " + movie.Actors);
+            console.log("If you haven't watched " + movie.Title + " then you should: http://www.imdb.com/title/" + movie.imdbID)
+
+
         })
 
     },
     dowhatitsays: function () {
-        return "do this stuff right here"
+
+        fs.readFile("./random.txt", "UTF8", (error, data) => {
+                if (error) throw error;
+
+                [command, query] = data.split(",");
+                console.log(this)
+                command = this.convertStringToFunction(command)
+                const doesThisStuff = this[command];
+                doesThisStuff(query);
+            }
+
+        )
+
     },
 
 
