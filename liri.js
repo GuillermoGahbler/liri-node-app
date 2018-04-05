@@ -52,7 +52,7 @@ let liri = {
 
     // Spotify complete
     spotifythissong: function (query) {
-        if (!query) query = "enter the wu-tang, cream"
+        if (!query) query = "all eyez on me, i ain't mad at cha"
         var spotify = new Spotify(keys.spotify);
 
         spotify.search({
