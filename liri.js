@@ -83,17 +83,17 @@ var liri = {
             if (error) throw error
             const movie = JSON.parse(body);
             const rottenScore = movie.Ratings
-                .filter(val => val.Source = "Rotten Tomato")[0].Value
+                .filter(val => val.Source = "Rotten Tomato")[1].Value
             console.log("Movie Title: " + movie.Title);
             console.log("Year released: " + movie.Year);
-            console.log("IMDB rating: " + movie.imdbRating + "/10");
+            console.log("IMDB rating: " + movie.imdbRating);
             console.log("Rotten Tomatoes rating: " + rottenScore);
             console.log("Country produced: " + movie.Country);
             console.log("Language: " + movie.Language);
             console.log("Plot: " + movie.Plot);
             console.log("Actors: " + movie.Actors);
             console.log("If you haven't watched " + movie.Title + " then you should: http://www.imdb.com/title/" + movie.imdbID)
-
+          
 
         })
 
