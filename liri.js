@@ -52,7 +52,7 @@ var liri = {
 
     // Spotify completed
     spotifythissong: function (query) {
-        if (!query) query = "all eyez on me, i ain't mad at cha"
+        if (!query) query = "enter the wu tang clan, cream"
         var spotify = new Spotify(keys.spotify);
 
         spotify.search({
@@ -77,7 +77,7 @@ var liri = {
     },
     // IMDB completed
     moviethis: function (query) {
-        if (!query) query = "mr nobody";
+        if (!query) query = "beerfest";
         var path = "https://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=trilogy&r=json"
         request(path, (error, response, body) => {
             if (error) throw error
@@ -98,6 +98,7 @@ var liri = {
         })
 
     },
+
     dowhatitsays: function () {
 
         fs.readFile("./random.txt", "UTF8", (error, data) => {
